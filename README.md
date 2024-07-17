@@ -6,7 +6,7 @@ Permet de vous protéger des raclures qui vous invitent dans des groupes Discord
 ![BlackBox-4610462346](https://github.com/user-attachments/assets/1692253e-4eae-4221-8c8f-f3ebfd403a98)
 
 ### Exemple de la gestion des logs:
-![logs](https://github.com/user-attachments/assets/aaae201c-c06f-4c76-8e2d-3e98a1af4e48)
+![image](https://github.com/user-attachments/assets/5020ef0b-a139-4477-b91a-5a18e3b4cebd)
 
 # Installation:
 
