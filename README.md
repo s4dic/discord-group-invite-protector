@@ -10,7 +10,10 @@ Permet de vous protéger des raclures qui vous invitent dans des groupes Discord
 
 # Installation:
 
-- 1 : suivez les instruction d'installation [ICI](https://nodejs.org/en/download).
+- 1 : suivez les instruction d'installation:<br>
+  ```curl -fsSL https://deb.nodesource.com/setup_22.x | bash -```<br>
+  ```apt install -y nodejs```<br>
+  Une autre méthode moins fiable est disponible [ICI](https://nodejs.org/en/download)
 - 2 : Clonner/Télécharger ce repository git sur votre machine (idéallement un serveur linux 🤓)
 - 3 : Si vous voulez les log commencer par faire un groupe discord et noter l'id du groupe
 - 4 : rajouter l'id du canal dans le dossier whitelist.txt et rajouter tous les groupes que vous souhaitez garder comme actif, vous pouvez mettre des commentaires avec `#`:<br>
