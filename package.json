@@ -1,0 +1,15 @@
+{
+    "name": "discord-group-invite-protector",
+    "version": "0.0.1",
+    "description": "http://sleek.blackbox.sh/",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "Sleek - BlackBox 2024",
+    "license": "ISC",
+    "dependencies": {
+        "discord.js-selfbot-v13": "^3.1.4"
+    }
+}
