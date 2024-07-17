@@ -10,16 +10,15 @@ Permet de vous protéger des raclures qui vous invitent dans des groupes Discord
 
 # Installation:
 
-1 - suivez les instruction d'installation [ICI](https://nodejs.org/en/download).
-
-2 - Clonner/Télécharger ce repository git sur votre machine (idéallement un serveur linux 🤓)
-
-3 - Si vous voulez les log commencer par faire un groupe discord et noter l'id du groupe
-
-4 - rajouter l'id du canal dans le dossier whitelist.txt et rajouter tous les groupes que vous souhaitez garder comme actif, vous pouvez mettre des commentaires avec `#`:
-
+- 1 : suivez les instruction d'installation [ICI](https://nodejs.org/en/download).
+- 2 : Clonner/Télécharger ce repository git sur votre machine (idéallement un serveur linux 🤓)
+- 3 : Si vous voulez les log commencer par faire un groupe discord et noter l'id du groupe
+- 4 : rajouter l'id du canal dans le dossier whitelist.txt et rajouter tous les groupes que vous souhaitez garder comme actif, vous pouvez mettre des commentaires avec `#`:<br>
 ![image](https://github.com/user-attachments/assets/3d563e30-5e51-41dc-ad49-f43fabf3b2aa)
-
-5 - 
-6 - ``````
-[Comming Sound]
+- 5 : Éditez le fichier "index.js", et rajouter les elements suivant:<br>
+    - Dans "token", mettez votre token Discord.<br>
+    - Dans "notificationGroupId", mettez l'ID de votre groupe permettant de visionner les logs.<br>
+    - Dans "leaveMessage", mettez le message qui sera envoyé dans le groupe qui vous a invité.<br>
+    - Activez ensuite les options désirées en utilisant "True" pour activer et "False" pour désactiver.
+- 6: faites un chmod +x sur le fichier start.sh et demarrez le service : ```./start.sh```<br>
+![image](https://github.com/user-attachments/assets/7cfd4992-0fa0-488a-9046-b841b1ac5aa9)
