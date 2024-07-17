@@ -48,7 +48,12 @@ client.on('ready', async () => {
                             const dateStr = now.toLocaleDateString('fr-FR');
                             const timeStr = now.toLocaleTimeString('fr-FR');
                             let participants = channel.recipients.map(user => `<@${user.id}>`).join(', ');
-                            await notificationChannel.send(`\n invidation détectée le: ${dateStr} à ${timeStr},\nInvitation probable du groupe par: <@${inviterId}>\nParticipants: ${participants}\n`);
+                            await notificationChannel.send(
+                                `\n invitation détectée le: ${dateStr} à ${timeStr},\n` +
+                                `Invitation probable du groupe par: <@${inviterId}>\n` +
+                                `Participants: ${participants}\n` +
+                                `ID du groupe pour whitelist: ${channel.id}`
+                            );
                         }
                     } catch (error) {
                         if (enableLogs) {
