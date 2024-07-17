@@ -2,7 +2,7 @@ const { Client } = require('discord.js-selfbot-v13');
 const fs = require('fs');
 const client = new Client();
 
-// Configure t'es option ci-dessous
+// Configure tes options ci-dessous
 const token = ""; // Remplacez par votre token ici
 const notificationGroupId = ""; // Remplacez par votre ID du groupe où notifier les invitations
 const leaveMessage = "🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕"; // Message à envoyer avant de quitter
