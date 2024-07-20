@@ -65,7 +65,9 @@ client.on('ready', async () => {
             const args = message.content.split(' ').slice(1);
             const id = args[0];
 
-            if (id) {
+            if (id === notificationGroupId) {
+                message.channel.send(`Le groupe ${id} est protégé.`);
+            } else if (id) {
                 removeFromWhitelist(id);
                 message.channel.send(`Le groupe ${id} a été supprimé de la whitelist.`);
             }
