@@ -5,7 +5,7 @@ Permet de vous protéger des raclures qui vous invitent dans des groupes Discord
 - Commande pour whitelister un group (avec l'id du groupe): `!wl 1253688591557857341 groupe de travail`
 - Commande pour supprimer un whitelist (avec l'id du groupe): `!uwl 1253688591557857341`
 - Commande "BONUS" : Supprimer un chat `!rm` ou `!rm 10`
-![image](https://github.com/user-attachments/assets/dd9c29ee-930f-4971-8e62-ee7abdad0d61)
+![image](https://github.com/user-attachments/assets/71357c7e-89a0-40a1-9264-c970e0f69b12)
 ![image](https://github.com/user-attachments/assets/e24bcdf9-18c5-45fd-b58d-63629027c518)
 
 ## Demonstations
