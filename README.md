@@ -29,7 +29,7 @@ Permet de vous protéger des raclures qui vous invitent dans des groupes Discord
     - Pour avoir votre token via better discord, activer le menu developpeur:<br>
     ![image](https://github.com/user-attachments/assets/608b5038-f3e3-4a03-a5e9-61764f1dc3e4)
       - Executer le raccourci clavier "ctrl+shift+i"
-      - taper écrivez "allow pasting" puis coller la commande suivante:
+      - Ecrivez "allow pasting" pour autoriser la copie d'une commande, puis coller la commande suivante:
   ```bash
   window.webpackChunkdiscord_app.push([
     [Math.random()],
