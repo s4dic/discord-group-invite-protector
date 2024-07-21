@@ -61,3 +61,4 @@ Permet de vous protéger des raclures qui vous invitent dans des groupes Discord
   - Activez ensuite les options désirées en utilisant "True" pour activer et "False" pour désactiver.
 - 6: faites un chmod +x sur le fichier start.sh et demarrez le service : ```./start.sh```<br>
 ![image](https://github.com/user-attachments/assets/7cfd4992-0fa0-488a-9046-b841b1ac5aa9)
+- 7: Si vous le désirez, vous pouvez mettre le processus dans un "screen" Linux pour que la commande ne se ferme pas a lorsque vous quittez le terminal.
