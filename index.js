@@ -152,7 +152,6 @@ Ce script protège votre compte Discord en quittant automatiquement les invitati
                 const fetchedMessages = await message.channel.messages.fetch({ limit: 100 });
                 const myMessages = Array.from(fetchedMessages.filter(msg => msg.author.id === client.user.id).values()).slice(0, count);
                 await deleteMessages(message.channel, myMessages);
-                message.channel.send(`${count} messages supprimés.`);
             } catch (error) {
                 console.error(`Failed to delete messages: ${error}`);
             }
