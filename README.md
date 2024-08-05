@@ -1,5 +1,5 @@
 # Discord Group Invite Protector
-Permet de vous protéger des raclures qui vous invitent dans des groupes Discord sans votre accord.
+Permet de vous protéger des raclures qui vous invitent dans des groupes Discord sans votre accord et même lorsque votre client discord est fermé.
 
 # Fonctionnalités
 - Commande pour whitelister un group (avec l'id du groupe): `!wl 1253688591557857341 groupe de travail`
@@ -7,6 +7,9 @@ Permet de vous protéger des raclures qui vous invitent dans des groupes Discord
 - Commande "BONUS" : Supprimer un chat `!rm` ou `!rm 10`
 ![image](https://github.com/user-attachments/assets/71357c7e-89a0-40a1-9264-c970e0f69b12)
 ![image](https://github.com/user-attachments/assets/e24bcdf9-18c5-45fd-b58d-63629027c518)
+- Ajout de !ping pour verifier que le script est en fonctionnement
+- Ajout de !help qui permet de voir toutes les options possibles
+- Ajout d'une fonctionnalité de détection qui enregistre automatiquement les pings reçus, même lorsque votre Discord est fermé.
 
 ## Demonstations
 ### Message+Déconnexion Silencieuse :
