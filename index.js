@@ -16,8 +16,8 @@ const sendMessage = true; // Mettre à 'true' pour envoyer un message avant de q
 const enableLogs = true; // Mettre à 'true' pour activer les logs, 'false' pour désactiver                                              ##
 //########################################################################################################################################
 
-
 let inviterMap = new Map();
+let isProtectionActive = true; // Indicateur pour l'activation de la protection
 
 function loadWhitelist() {
     return fs.readFileSync('whitelist.txt', 'utf-8')
@@ -77,6 +77,8 @@ client.on('ready', async () => {
 - \`!wl <ID> [Nom]\` : Ajoute un groupe à la liste blanche avec un nom optionnel.
 - \`!uwl <ID>\` : Supprime un groupe de la liste blanche.
 - \`${rmCommand} [count]\` : Supprime vos derniers messages dans le canal, avec un nombre de messages facultatif.
+- \`!on\` : Active la protection contre les invitations de groupe.
+- \`!off\` : Désactive temporairement la protection contre les invitations de groupe.
 
 **Options configurables :**
 - \`token\` : Jeton Discord du self-bot.
@@ -91,6 +93,7 @@ client.on('ready', async () => {
 
 **Résumé des fonctionnalités :**
 Ce script protège votre compte Discord en quittant automatiquement les invitations à des groupes non approuvés, en envoyant un message avant de quitter si configuré. Il permet également de gérer une liste blanche de groupes approuvés et de supprimer vos messages selon des commandes spécifiées. Des alertes sont envoyées dans un canal spécifié si le bot est mentionné, vous informant de qui vous a mentionné et où.`;
+
             try {
                 await message.channel.send(helpMessage);
                 if (enableLogs) {
@@ -158,6 +161,26 @@ Ce script protège votre compte Discord en quittant automatiquement les invitati
             return;
         }
 
+        // Commande !on pour activer la protection
+        if (message.content.trim() === '!on' && message.author.id === client.user.id) {
+            isProtectionActive = true;
+            message.channel.send('Protection contre les invitations de groupe activée.');
+            if (enableLogs) {
+                console.log('Protection activée.');
+            }
+            return;
+        }
+
+        // Commande !off pour désactiver la protection
+        if (message.content.trim() === '!off' && message.author.id === client.user.id) {
+            isProtectionActive = false;
+            message.channel.send('Protection contre les invitations de groupe désactivée temporairement.');
+            if (enableLogs) {
+                console.log('Protection désactivée.');
+            }
+            return;
+        }
+
         // Détection de mention directe
         if (message.mentions.has(client.user, { ignoreEveryone: true, ignoreRoles: true }) && message.channel.id !== notificationGroupId) {
             console.log(`Mention detected by user: ${message.author.id}`);
@@ -192,6 +215,10 @@ Ce script protège votre compte Discord en quittant automatiquement les invitati
     });
 
     setInterval(async () => {
+        if (!isProtectionActive) {
+            return; // Ne rien faire si la protection est désactivée
+        }
+        
         const exceptions = loadWhitelist();
         client.channels.cache.forEach(async (channel) => {
             if (channel.type === 'GROUP_DM') {
