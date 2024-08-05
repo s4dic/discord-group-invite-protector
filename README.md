@@ -10,6 +10,7 @@ Permet de vous protéger des raclures qui vous invitent dans des groupes Discord
 - Ajout de !ping pour verifier que le script est en fonctionnement
 - Ajout de !help qui permet de voir toutes les options possibles
 - Ajout d'une fonctionnalité de détection qui enregistre automatiquement les pings reçus, même lorsque votre Discord est fermé.
+- Ajout de la fonctionnalité `!on` et `!off` permettant d'activer ou désactiver la fonctionnalité de suppression des groupes.
 
 ## Demonstations
 ### Message+Déconnexion Silencieuse :
