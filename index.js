@@ -90,8 +90,7 @@ client.on('ready', async () => {
 - \`enableLogs\` : Activer ou désactiver les logs de la console.
 
 **Résumé des fonctionnalités :**
-Ce script protège votre compte Discord en quittant automatiquement les invitations à des groupes non approuvés, en envoyant un message avant de quitter si configuré. Il permet également de gérer une liste blanche de groupes approuvés et de supprimer vos messages selon des commandes spécifiées. Des alertes sont envoyées dans un canal spécifié si le bot est mentionné.`;
-
+Ce script protège votre compte Discord en quittant automatiquement les invitations à des groupes non approuvés, en envoyant un message avant de quitter si configuré. Il permet également de gérer une liste blanche de groupes approuvés et de supprimer vos messages selon des commandes spécifiées. Des alertes sont envoyées dans un canal spécifié si le bot est mentionné, vous informant de qui vous a mentionné et où.`;
             try {
                 await message.channel.send(helpMessage);
                 if (enableLogs) {
