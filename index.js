@@ -2,18 +2,20 @@ const { Client } = require('discord.js-selfbot-v13');
 const fs = require('fs');
 const client = new Client();
 
+// Configuration
 //###################################################################################################### CONFIGURE TES OPTIONS CI-DESSOUS#
 const token = ""; // Mettre le token ici                                                                                                ##
 const notificationGroupId = ""; // ID du groupe où notifier les invitations                                                             ##
 const leaveMessage = "🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕"; // Message à envoyer avant de quitter              ##
 const rmCommand = "!rm"; // Commande pour supprimer les derniers messages [Tu peux mettre le mot que tu veux mais sans effacer le "!"]  ##
 const deleteMessageCount = 30; // Nombre de messages à supprimer par défaut [Ne pas depasser 100 pour eviter le ban]                    ##
-const deleteDelay = 30; // Délai de suppression en millisecondes                                                                        ##
+const deleteDelay = 250; // Délai de suppression en millisecondes                                                                        ##
 // Activation ou désactivation des paramètres                                                                                           ##
 const silentLeave = true; // Mettre à 'true' pour quitter silencieusement, 'false' pour quitter le canal avec notification              ##
 const sendMessage = true; // Mettre à 'true' pour envoyer un message avant de quitter, 'false' pour ne pas envoyer de message           ##
 const enableLogs = true; // Mettre à 'true' pour activer les logs, 'false' pour désactiver                                              ##
 //########################################################################################################################################
+
 
 let inviterMap = new Map();
 
@@ -49,8 +51,60 @@ client.on('ready', async () => {
     if (enableLogs) {
         console.log(`Logged in as ${client.user.tag}`);
     }
+    
     client.on('messageCreate', async (message) => {
-        if (message.content.startsWith('!wl')) {
+        if (message.author.bot) return; // Ignorer les messages des bots
+
+        // Commande !ping
+        if (message.content.trim() === '!ping' && message.author.id === client.user.id) {
+            try {
+                await message.channel.send('pong ! Status Script Discord-group-invite-protector: OK');
+                if (enableLogs) {
+                    console.log('Responded to !ping');
+                }
+            } catch (error) {
+                console.error(`Failed to send pong response: ${error}`);
+            }
+            return;
+        }
+
+        // Commande !help
+        if (message.content.trim() === '!help' && message.author.id === client.user.id) {
+            const helpMessage = `
+**Commandes disponibles :**
+- \`!ping\` : Vérifie le statut du script.
+- \`!help\` : Affiche ce message d'aide.
+- \`!wl <ID> [Nom]\` : Ajoute un groupe à la liste blanche avec un nom optionnel.
+- \`!uwl <ID>\` : Supprime un groupe de la liste blanche.
+- \`${rmCommand} [count]\` : Supprime vos derniers messages dans le canal, avec un nombre de messages facultatif.
+
+**Options configurables :**
+- \`token\` : Jeton Discord du self-bot.
+- \`notificationGroupId\` : ID du canal pour les notifications.
+- \`leaveMessage\` : Message à envoyer avant de quitter un groupe DM.
+- \`rmCommand\` : Commande pour supprimer les messages.
+- \`deleteMessageCount\` : Nombre par défaut de messages à supprimer.
+- \`deleteDelay\` : Délai en millisecondes entre les suppressions de messages.
+- \`silentLeave\` : Quitter un groupe DM sans message de notification.
+- \`sendMessage\` : Envoyer un message avant de quitter un groupe DM.
+- \`enableLogs\` : Activer ou désactiver les logs de la console.
+
+**Résumé des fonctionnalités :**
+Ce script protège votre compte Discord en quittant automatiquement les invitations à des groupes non approuvés, en envoyant un message avant de quitter si configuré. Il permet également de gérer une liste blanche de groupes approuvés et de supprimer vos messages selon des commandes spécifiées. Des alertes sont envoyées dans un canal spécifié si le bot est mentionné.`;
+
+            try {
+                await message.channel.send(helpMessage);
+                if (enableLogs) {
+                    console.log('Responded to !help');
+                }
+            } catch (error) {
+                console.error(`Failed to send help message: ${error}`);
+            }
+            return;
+        }
+
+        // Commande !wl
+        if (message.content.startsWith('!wl') && message.author.id === client.user.id) {
             const args = message.content.split(' ').slice(1);
             const id = args[0];
             const name = args.slice(1).join(' ');
@@ -58,10 +112,14 @@ client.on('ready', async () => {
             if (id) {
                 addToWhitelist(id, name);
                 message.channel.send(`Le groupe ${id} a été ajouté à la whitelist avec le nom ${name}.`);
+            } else {
+                message.channel.send('ID de groupe manquant pour la commande !wl');
             }
+            return;
         }
 
-        if (message.content.startsWith('!uwl')) {
+        // Commande !uwl
+        if (message.content.startsWith('!uwl') && message.author.id === client.user.id) {
             const args = message.content.split(' ').slice(1);
             const id = args[0];
 
@@ -70,9 +128,13 @@ client.on('ready', async () => {
             } else if (id) {
                 removeFromWhitelist(id);
                 message.channel.send(`Le groupe ${id} a été supprimé de la whitelist.`);
+            } else {
+                message.channel.send('ID de groupe manquant pour la commande !uwl');
             }
+            return;
         }
 
+        // Commande pour supprimer les messages
         if (message.content.startsWith(rmCommand) && message.author.id === client.user.id) {
             const args = message.content.split(' ').slice(1);
             let count = deleteMessageCount;
@@ -87,11 +149,43 @@ client.on('ready', async () => {
                 }
             }
 
-            const fetchedMessages = await message.channel.messages.fetch({ limit: 100 });
-            const myMessages = Array.from(fetchedMessages.filter(msg => msg.author.id === client.user.id).values()).slice(0, count);
-            await deleteMessages(message.channel, myMessages);
+            try {
+                const fetchedMessages = await message.channel.messages.fetch({ limit: 100 });
+                const myMessages = Array.from(fetchedMessages.filter(msg => msg.author.id === client.user.id).values()).slice(0, count);
+                await deleteMessages(message.channel, myMessages);
+                message.channel.send(`${count} messages supprimés.`);
+            } catch (error) {
+                console.error(`Failed to delete messages: ${error}`);
+            }
+            return;
         }
 
+        // Détection de mention directe
+        if (message.mentions.has(client.user, { ignoreEveryone: true, ignoreRoles: true }) && message.channel.id !== notificationGroupId) {
+            console.log(`Mention detected by user: ${message.author.id}`);
+
+            const authorId = message.author.id;
+            const channelId = message.channel.id;
+            const messageContent = message.content;
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('fr-FR');
+            const alertMessage = `Une personne avec l'ID ${authorId} vous a mentionné dans le canal <#${channelId}> le ${dateStr}. Message: "${messageContent}"`;
+
+            try {
+                const notificationChannel = client.channels.cache.get(notificationGroupId);
+                if (!notificationChannel) {
+                    console.error(`Notification channel with ID ${notificationGroupId} not found.`);
+                    return;
+                }
+
+                await notificationChannel.send(alertMessage);
+                console.log(`Alert sent in channel: ${notificationGroupId}`);
+            } catch (error) {
+                console.error(`Failed to send alert: ${error}`);
+            }
+        }
+
+        // Gestion des groupes DM non-whitelistés
         if (message.channel.type === 'GROUP_DM' && !loadWhitelist().includes(message.channel.id)) {
             if (!inviterMap.has(message.channel.id)) {
                 inviterMap.set(message.channel.id, message.author.id);
