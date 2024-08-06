@@ -181,16 +181,19 @@ Ce script protège votre compte Discord en quittant automatiquement les invitati
             return;
         }
 
-        // Détection de mention directe
-        if (message.mentions.has(client.user, { ignoreEveryone: true, ignoreRoles: true }) && message.channel.id !== notificationGroupId) {
-            console.log(`Mention detected by user: ${message.author.id}`);
+        // Détection de mention directe avec @
+        if (message.mentions.has(client.user, { ignoreEveryone: true, ignoreRoles: true }) &&
+            message.content.includes(`<@${client.user.id}>`) &&
+            message.channel.id !== notificationGroupId) {
+
+            console.log(`Mention directe détectée par l'utilisateur: ${message.author.id}`);
 
             const authorId = message.author.id;
             const channelId = message.channel.id;
             const messageContent = message.content;
             const now = new Date();
             const dateStr = now.toLocaleDateString('fr-FR');
-            const alertMessage = `Une personne avec l'ID ${authorId} vous a mentionné dans le canal <#${channelId}> le ${dateStr}. Message: "${messageContent}"`;
+            const alertMessage = `Une personne avec l'ID ${authorId} vous a mentionné directement dans le canal <#${channelId}> le ${dateStr}. Message: "${messageContent}"`;
 
             try {
                 const notificationChannel = client.channels.cache.get(notificationGroupId);
