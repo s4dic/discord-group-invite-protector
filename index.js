@@ -26,6 +26,13 @@ function loadWhitelist() {
         .filter(Boolean); // Filtrer les lignes vides
 }
 
+// Nouvelle fonction pour charger la whitelist avec les commentaires
+function loadWhitelistWithComments() {
+    return fs.readFileSync('whitelist.txt', 'utf-8')
+        .split('\n')
+        .filter(Boolean); // Ne pas supprimer les commentaires, seulement les lignes vides
+}
+
 function addToWhitelist(id, name = '') {
     fs.appendFileSync('whitelist.txt', `${id} # ${name}\n`, 'utf-8');
 }
@@ -79,6 +86,7 @@ client.on('ready', async () => {
 - \`${rmCommand} [count]\` : Supprime vos derniers messages dans le canal, avec un nombre de messages facultatif.
 - \`!on\` : Active la protection contre les invitations de groupe.
 - \`!off\` : Désactive temporairement la protection contre les invitations de groupe.
+- \`!ls\` : Liste le contenu du fichier \`whitelist.txt\`, y compris les commentaires.
 
 **Options configurables :**
 - \`token\` : Jeton Discord du self-bot.
@@ -177,6 +185,23 @@ Ce script protège votre compte Discord en quittant automatiquement les invitati
             message.channel.send('Protection contre les invitations de groupe désactivée temporairement.');
             if (enableLogs) {
                 console.log('Protection désactivée.');
+            }
+            return;
+        }
+
+        // Commande !ls pour lister le contenu de whitelist.txt avec commentaires
+        if (message.content.trim() === '!ls' && message.author.id === client.user.id) {
+            try {
+                const whitelistWithComments = loadWhitelistWithComments();
+                const whitelistContent = whitelistWithComments.length > 0 
+                    ? whitelistWithComments.join('\n')
+                    : 'La liste blanche est vide.';
+                await message.channel.send(`**Contenu de la whitelist :**\n${whitelistContent}`);
+                if (enableLogs) {
+                    console.log('Listed whitelist content with comments');
+                }
+            } catch (error) {
+                console.error(`Failed to list whitelist content: ${error}`);
             }
             return;
         }
