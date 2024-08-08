@@ -26,13 +26,13 @@ Permet de vous protéger des raclures qui vous invitent dans des groupes Discord
   ```apt install -y nodejs```<br>
   Une autre méthode moins fiable est disponible [ICI](https://nodejs.org/en/download)
 - 2 : Clonner/Télécharger ce repository git sur votre machine (idéallement un serveur linux 🤓)
-- 3 : Si vous voulez les log commencer par faire un groupe discord et noter l'id du groupe
-- 4 : rajouter l'id du canal dans le dossier whitelist.txt et rajouter tous les groupes que vous souhaitez garder comme actif, vous pouvez mettre des commentaires avec `#`:<br>
+- 3 : Commencer par creer un groupe sur discord qui vous permettra de log tous les évènements et noter l'id du groupe (clique droit copier l'identifiant du salon), si vous ne pouvez pas copier l'identifiant du salon vous devez activer l'option développeur de discord dans les options
+- 4 : rajoutez maintenant l'id du canal dans le dossier whitelist.txt et rajouter tous les groupes que vous souhaitez garder comme actif, vous pouvez mettre des commentaires avec `#`:<br>
 ![image](https://github.com/user-attachments/assets/3d563e30-5e51-41dc-ad49-f43fabf3b2aa)
-- 5 : Éditez le fichier "index.js", et rajouter les elements suivant:<br>
-    - Pour avoir votre token via better discord, activer le menu developpeur:<br>
+- 5 : Éditez le fichier "index.js"<br>
+    - Vous devez ajouter votre token, vous pouvez avoir votre token via betterdiscord(telechargez et installer betterdiscord au préalable), puis activer le menu developpeur:<br>
     ![image](https://github.com/user-attachments/assets/608b5038-f3e3-4a03-a5e9-61764f1dc3e4)
-      - Executer le raccourci clavier "ctrl+shift+i"
+      - Executez le raccourci clavier "ctrl+shift+i"
       - Ecrivez "allow pasting" pour autoriser la copie d'une commande, puis coller la commande suivante:
   ```bash
   window.webpackChunkdiscord_app.push([
