@@ -1,3 +1,7 @@
+#!/bin/bash 
 npm i
 echo "Connexion au compte en cours..."
-node index.js
+while true; do
+   npm index.js;
+   sleep 300;
+done
