@@ -1,3 +1,4 @@
+#!/bin/bash
 npm i
 echo "Connexion au compte en cours..."
 while true; do
